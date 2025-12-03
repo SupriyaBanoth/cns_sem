@@ -1,0 +1,12 @@
+import java.security.*;
+public class SHA512Example {
+    public static void main(String[] args) throws Exception {
+        String msg = "Hello CNS Lab";
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        byte[] digest = md.digest(msg.getBytes());
+        System.out.println("Message: " + msg);
+        System.out.println("SHA-512 Digest:");
+        for (byte b : digest)
+            System.out.printf("%02x", b);
+    }
+}
