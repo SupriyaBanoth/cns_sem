@@ -1,0 +1,21 @@
+import javax.crypto.*;
+import java.util.*;
+
+public class AES_ECB {
+    public static void main(String[] a) throws Exception {
+        var key = KeyGenerator.getInstance("AES");
+        key.init(128);
+
+        var k = key.generateKey();
+        var c = Cipher.getInstance("AES/ECB/PKCS5Padding");
+
+        c.init(Cipher.ENCRYPT_MODE, k);
+        var enc = c.doFinal("HelloWorld".getBytes());
+
+        c.init(Cipher.DECRYPT_MODE, k);
+        var dec = c.doFinal(enc);
+
+        System.out.println("Enc: " + Base64.getEncoder().encodeToString(enc));
+        System.out.println("Dec: " + new String(dec));
+    }
+}
