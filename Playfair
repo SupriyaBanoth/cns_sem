@@ -1,0 +1,34 @@
+public class PlayfairSimple {
+    static char[][] keyMatrix = {
+        {'M','O','N','A','R'},
+        {'C','H','Y','B','D'},
+        {'E','F','G','I','K'},
+        {'L','P','Q','S','T'},
+        {'U','V','W','X','Z'}
+    };
+
+    static String encryptPair(char a, char b) {
+        int r1=0,c1=0,r2=0,c2=0;
+        for (int i=0; i<5; i++) {
+            for (int j=0; j<5; j++) {
+                if (keyMatrix[i][j]==a) { r1=i; c1=j; }
+                if (keyMatrix[i][j]==b) { r2=i; c2=j; }
+            }
+        }
+        if (r1==r2) return ""+keyMatrix[r1][(c1+1)%5]+keyMatrix[r2][(c2+1)%5];
+        else if (c1==c2) return ""+keyMatrix[(r1+1)%5][c1]+keyMatrix[(r2+1)%5][c2];
+        else return ""+keyMatrix[r1][c2]+keyMatrix[r2][c1];
+    }
+
+    public static void main(String[] args) {
+        String pt1="SAIPOOJA";
+        String pt = pt1.replace("J","I");
+        if (pt.length()%2!=0) pt += "X";
+        StringBuilder ct = new StringBuilder();
+        for (int i=0; i<pt.length(); i+=2) {
+            ct.append(encryptPair(pt.charAt(i), pt.charAt(i+1)));
+        }
+        System.out.println("Plain Text: " + pt1);
+        System.out.println("Cipher Text: " + ct);
+    }
+}
