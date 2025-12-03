@@ -1,0 +1,22 @@
+public class CaesarCipher {
+
+    static String transform(String text, int shift) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            sb.append((char) ((c - 'A' + shift) % 26 + 'A'));
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        String text = "CNSLAB";
+        int shift = 3;
+
+        String encrypted = transform(text, shift);
+        String decrypted = transform(encrypted, 26 - shift);
+
+        System.out.println("Original  : " + text);
+        System.out.println("Encrypted : " + encrypted);
+        System.out.println("Decrypted : " + decrypted);
+    }
+}
