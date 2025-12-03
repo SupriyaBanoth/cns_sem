@@ -1,0 +1,28 @@
+public class HillCipher {
+    public static void main(String[] args) {
+        int[][] key={{3,3},{2,5}};
+        int[][] inv={{15,17},{20,9}}; // precomputed inverse of key
+        String msg="CRYPTOGRAPHY";
+        if(msg.length()%2!=0) msg+="X";
+
+        // Encrypt
+        String enc="";
+        for(int i=0;i<msg.length();i+=2){
+            int a=msg.charAt(i)-'A', b=msg.charAt(i+1)-'A';
+            enc += (char)((key[0][0]*a+key[0][1]*b)%26+'A');
+            enc += (char)((key[1][0]*a+key[1][1]*b)%26+'A');
+        }
+
+        // Decrypt
+        String dec="";
+        for(int i=0;i<enc.length();i+=2){
+            int a=enc.charAt(i)-'A', b=enc.charAt(i+1)-'A';
+            dec += (char)((inv[0][0]*a+inv[0][1]*b)%26+'A');
+            dec += (char)((inv[1][0]*a+inv[1][1]*b)%26+'A');
+        }
+
+        System.out.println("Original : "+msg);
+        System.out.println("Encrypted: "+enc);
+        System.out.println("Decrypted: "+dec);
+    }
+}
