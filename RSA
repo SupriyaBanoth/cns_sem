@@ -1,0 +1,17 @@
+import java.security.*;
+import javax.crypto.Cipher;
+public class RSAExample {
+    public static void main(String[] args) throws Exception {
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+        kpg.initialize(1024);
+        KeyPair kp = kpg.generateKeyPair();
+        Cipher c = Cipher.getInstance("RSA");
+        String msg = "HE";
+        c.init(Cipher.ENCRYPT_MODE, kp.getPublic());
+        byte[] enc = c.doFinal(msg.getBytes());
+        System.out.println("Encrpyted: " + new String(enc));
+        c.init(Cipher.DECRYPT_MODE, kp.getPrivate());
+        byte[] dec = c.doFinal(enc);
+        System.out.println("Decrypted: " + new String(dec));
+    }
+}
