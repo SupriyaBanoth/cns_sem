@@ -1,0 +1,24 @@
+import java.security.*;
+import java.util.Base64;
+
+public class DigitalSign {
+    public static void main(String[] args) throws Exception {
+
+        var kp = KeyPairGenerator.getInstance("DSA");
+        kp.initialize(1024);
+        var pair = kp.generateKeyPair();
+
+        var sig = Signature.getInstance("SHA256withDSA");
+        byte[] msg = "Hello".getBytes();
+
+        sig.initSign(pair.getPrivate());
+        sig.update(msg);
+        byte[] s = sig.sign();
+
+        System.out.println("Signature: " + Base64.getEncoder().encodeToString(s));
+
+        sig.initVerify(pair.getPublic());
+        sig.update(msg);
+        System.out.println("Verified: " + sig.verify(s));
+    }
+}
