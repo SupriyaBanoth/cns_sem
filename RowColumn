@@ -1,0 +1,42 @@
+import java.util.*;
+public class RowAndColumn {
+    public static void main(String[] args) {
+
+        String msg = "HELLOWORLD";
+        int row = 2, col = 5;
+
+        // pad message
+        while (msg.length() < row * col)
+            msg += "X";
+
+        // fill row‑wise
+        char[][] mat = new char[row][col];
+        int k = 0;
+        for (int r = 0; r < row; r++)
+            for (int c = 0; c < col; c++)
+                mat[r][c] = msg.charAt(k++);
+
+        // encrypt: read column‑wise
+        StringBuilder enc = new StringBuilder();
+        for (int c = 0; c < col; c++)
+            for (int r = 0; r < row; r++)
+                enc.append(mat[r][c]);
+
+        // decrypt: fill column‑wise
+        char[][] decMat = new char[row][col];
+        k = 0;
+        for (int c = 0; c < col; c++)
+            for (int r = 0; r < row; r++)
+                decMat[r][c] = enc.charAt(k++);
+
+        // read row‑wise
+        StringBuilder dec = new StringBuilder();
+        for (int r = 0; r < row; r++)
+            for (int c = 0; c < col; c++)
+                dec.append(decMat[r][c]);
+
+        System.out.println("Original   : " + msg);
+        System.out.println("Encrypted  : " + enc);
+        System.out.println("Decrypted  : " + dec);
+    }
+}
