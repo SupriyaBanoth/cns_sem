@@ -1,0 +1,21 @@
+//diffie hellman
+import java.util.*;
+public class DiffieHellman {
+    public static void main(String[] args) {
+        int P = 23;  // prime number
+        int G = 9;   // primitive root
+        int a = 4;   // Alice's private key
+        int b = 3;   // Bob's private key
+
+        int x = (int) Math.pow(G, a) % P;  // Alice's public key
+        int y = (int) Math.pow(G, b) % P;  // Bob's public key
+
+        int ka = (int) Math.pow(y, a) % P; // Alice's secret key
+        int kb = (int) Math.pow(x, b) % P; // Bob's secret key
+
+        System.out.println("Public Key of Alice: " + x);
+        System.out.println("Public Key of Bob: " + y);
+        System.out.println("Secret Key for Alice: " + ka);
+        System.out.println("Secret Key for Bob: " + kb);
+    }
+}
