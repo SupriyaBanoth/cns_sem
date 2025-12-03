@@ -1,0 +1,26 @@
+import javax.crypto.*;
+import javax.crypto.spec.*;
+import java.util.*;
+
+public class AES_CBC {
+    public static void main(String[] a) throws Exception {
+        var keyGen = KeyGenerator.getInstance("AES");
+        keyGen.init(128);
+        var key = keyGen.generateKey();
+
+        var cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+
+        byte[] iv = new byte[16];
+        new SecureRandom().nextBytes(iv);
+        var ivSpec = new IvParameterSpec(iv);
+
+        cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
+        var enc = cipher.doFinal("HelloWorld".getBytes());
+
+        cipher.init(Cipher.DECRYPT_MODE, key, ivSpec);
+        var dec = cipher.doFinal(enc);
+
+        System.out.println("Enc: " + Base64.getEncoder().encodeToString(enc));
+        System.out.println("Dec: " + new String(dec));
+    }
+}
